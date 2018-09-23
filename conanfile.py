@@ -9,7 +9,10 @@ class SigcppConan(ConanFile):
     url = "https://github.com/elizagamedev/conan-sigcpp"
     description = "Callback Framework for C++"
     settings = "os", "compiler", "build_type", "arch"
-    options = {"shared": [True, False]}
+    options = {
+        "shared": [True, False],
+        "fPIC": [True, False],
+    }
     default_options = "shared=False"
     exports = "msvc.patch"
 
@@ -18,6 +21,8 @@ class SigcppConan(ConanFile):
                  "x86_64": "x64"}
 
     def config_options(self):
+        if self.settings.os == "Windows":
+            del self.options.fPIC
         if self.settings.compiler == "Visual Studio":
             del self.options.shared
 
