@@ -1,4 +1,4 @@
-from conans import ConanFile, CMake, tools, MSBuild, AutoToolsBuildEnvironment
+from conans import ConanFile, tools, MSBuild, AutoToolsBuildEnvironment
 import os.path
 
 
@@ -13,7 +13,10 @@ class SigcppConan(ConanFile):
         "shared": [True, False],
         "fPIC": [True, False],
     }
-    default_options = "shared=False"
+    default_options = (
+        "shared=False",
+        "fPIC=False",
+    )
     exports = "msvc.patch"
 
     sourcename = "libsigc++-{}".format(version)
