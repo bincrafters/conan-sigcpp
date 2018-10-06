@@ -1,5 +1,6 @@
 from conans import ConanFile, tools, MSBuild, AutoToolsBuildEnvironment
 from conans.model.version import Version
+from conans.errors import ConanException
 import os.path
 import sys
 
