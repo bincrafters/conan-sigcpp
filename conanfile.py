@@ -60,6 +60,7 @@ class SigcppConan(ConanFile):
                 args = (['--enable-shared', '--disable-static']
                         if self.options.shared else
                         ['--enable-static', '--disable-shared'])
+                autotools.cxx_flags.append("-std=c++14")
                 autotools.configure(args=args)
                 autotools.make()
                 autotools.install()
