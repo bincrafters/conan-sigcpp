@@ -1,6 +1,7 @@
 from conans import ConanFile, tools, MSBuild, AutoToolsBuildEnvironment
 from conans.model.version import Version
 import os.path
+import sys
 
 
 class SigcppConan(ConanFile):
@@ -31,6 +32,10 @@ class SigcppConan(ConanFile):
             del self.options.shared
 
     @property
+    def is_python2(self):
+        return sys.version_info[0] == 2
+
+    @property
     def supports_cpp14(self):
         compiler = str(self.settings.compiler)
         version = Version(str(self.settings.compiler.version))
@@ -49,7 +54,7 @@ class SigcppConan(ConanFile):
             raise ConanException("The specified compiler must support C++14")
 
     def build_requirements(self):
-        if self.settings.os == "Windows":
+        if self.settings.os == "Windows" and self.is_python2:
             self.build_requires("7z_installer/1.0@conan/stable")
 
     def source(self):
@@ -57,13 +62,18 @@ class SigcppConan(ConanFile):
             self.version.rpartition(".")[0],
             self.sourcename,
         ), self.sourcename + ".tar.xz")
-        if self.settings.os == "Windows":
-            self.run("7z x {}.tar.xz".format(self.sourcename))
-            os.remove(self.sourcename + ".tar.xz")
+
+        if self.is_python2:
+            if self.settings.os == "Windows":
+                self.run("7z x {}.tar.xz".format(self.sourcename))
+                os.remove(self.sourcename + ".tar.xz")
+            else:
+                self.run("xz -d {}.tar.xz".format(self.sourcename))
+            tools.unzip(self.sourcename + ".tar")
+            os.remove(self.sourcename + ".tar")
         else:
-            self.run("xz -d {}.tar.xz".format(self.sourcename))
-        tools.unzip(self.sourcename + ".tar")
-        os.remove(self.sourcename + ".tar")
+            tools.unzip(self.sourcename + ".tar.xz")
+            os.remove(self.sourcename + ".tar.xz")
 
         tools.patch(base_path=self.sourcename, patch_file="msvc.patch")
 
