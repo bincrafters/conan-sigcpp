@@ -29,11 +29,23 @@ class SigcppConan(ConanFile):
         if self.settings.compiler == "Visual Studio":
             del self.options.shared
 
+    def build_requirements(self):
+        if self.settings.os == "Windows":
+            self.build_requires("7z_installer/1.0@conan/stable")
+
     def source(self):
-        tools.get("https://download.gnome.org/sources/libsigc++/{}/{}.tar.xz".format(
+        tools.download("https://download.gnome.org/sources/libsigc++/{}/{}.tar.xz".format(
             self.version.rpartition(".")[0],
             self.sourcename,
-        ))
+        ), self.sourcename + ".tar.xz")
+        if self.settings.os == "Windows":
+            self.run("7z x {}.tar.xz".format(self.sourcename))
+            os.remove(self.sourcename + ".tar.xz")
+        else:
+            self.run("xz -d {}.tar.xz".format(self.sourcename))
+        tools.unzip(self.sourcename + ".tar")
+        os.remove(self.sourcename + ".tar")
+
         tools.patch(base_path=self.sourcename, patch_file="msvc.patch")
 
     def build(self):
