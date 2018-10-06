@@ -1,4 +1,5 @@
 from conans import ConanFile, tools, MSBuild, AutoToolsBuildEnvironment
+from conans.model.version import Version
 import os.path
 
 
@@ -28,6 +29,24 @@ class SigcppConan(ConanFile):
             del self.options.fPIC
         if self.settings.compiler == "Visual Studio":
             del self.options.shared
+
+    @property
+    def supports_cpp14(self):
+        compiler = str(self.settings.compiler)
+        version = Version(str(self.settings.compiler.version))
+        if compiler == "Visual Studio" and version >= Version("14"):
+            return True
+        if compiler == "gcc" and version >= Version("5"):
+            return True
+        if compiler == "clang" and version >= Version("3.4"):
+            return True
+        if compiler == "apple-clang" and version >= Version("6.1"):
+            return True
+        return False
+
+    def configure(self):
+        if not self.supports_cpp14:
+            raise ConanException("The specified compiler must support C++14")
 
     def build_requirements(self):
         if self.settings.os == "Windows":
@@ -60,7 +79,6 @@ class SigcppConan(ConanFile):
                 args = (['--enable-shared', '--disable-static']
                         if self.options.shared else
                         ['--enable-static', '--disable-shared'])
-                autotools.cxx_flags.append("-std=c++14")
                 autotools.configure(args=args)
                 autotools.make()
                 autotools.install()
