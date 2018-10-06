@@ -20,7 +20,8 @@ class SigcppConan(ConanFile):
         "shared=False",
         "fPIC=False",
     )
-    exports = "msvc.patch"
+    exports = "LICENSE.md"
+    exports_sources = "msvc.patch"
 
     sourcename = "libsigc++-{}".format(version)
     platforms = {"x86": "Win32",
@@ -97,6 +98,7 @@ class SigcppConan(ConanFile):
     def package(self):
         if self.settings.compiler == "Visual Studio":
             self.copy("*", src=os.path.join("vs12", self.platforms[str(self.settings.arch)]))
+        self.copy("COPYING", dst="license", src=self.sourcename, keep_path=False)
 
     def package_info(self):
         self.cpp_info.includedirs = [os.path.join("include", "sigc++-2.0"),
