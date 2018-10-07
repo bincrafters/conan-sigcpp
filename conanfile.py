@@ -8,9 +8,11 @@ import sys
 class SigcppConan(ConanFile):
     name = "sigc++"
     version = "2.10.0"
-    license = "LGPL"
-    url = "https://github.com/elizagamedev/conan-sigcpp"
-    description = "Callback Framework for C++"
+    license = "LGPL-3.0"
+    url = "https://github.com/bincrafters/conan-sigcpp"
+    homepage = "https://github.com/libsigcplusplus/libsigcplusplus"
+    description = "Typesafe Callback Framework for C++"
+    author = "Bincrafters <bincrafters@gmail.com>"
     settings = "os", "compiler", "build_type", "arch"
     options = {
         "shared": [True, False],
