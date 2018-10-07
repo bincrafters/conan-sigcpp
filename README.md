@@ -2,7 +2,7 @@
 
 | Bintray | Windows | Linux & macOS |
 |:--------:|:---------:|:-----------------:|
-|[ ![Download](https://api.bintray.com/packages/eliza/conan/sigc%2B%2B%3Aeliza/images/download.svg) ](https://bintray.com/eliza/conan/sigc%2B%2B%3Aeliza/_latestVersion)|[![Build status](https://ci.appveyor.com/api/projects/status/iqsm7d0tpo24sreu?svg=true)](https://ci.appveyor.com/project/ElizaVelasquez/conan-sigcpp)|[![Build Status](https://travis-ci.org/elizagamedev/conan-sigcpp.svg?branch=stable%2F2.10.0)](https://travis-ci.org/elizagamedev/conan-sigcpp)|
+|[ ![Download](https://api.bintray.com/packages/bincrafters/public-conan/sigc%2B%2B%3Abincrafters/images/download.svg) ](https://bintray.com/bincrafters/public-conan/sigc%2B%2B%3Abincrafters/_latestVersion)|[![Build status](https://ci.appveyor.com/api/projects/status/github/bincrafters/conan-sigcpp?svg=true)](https://ci.appveyor.com/project/bincrafters/conan-sigcpp)|[![Build Status](https://travis-ci.org/bincrafters/conan-sigcpp.svg)](https://travis-ci.org/bincrafters/conan-sigcpp)|
 
 ## Conan.io Information
 
