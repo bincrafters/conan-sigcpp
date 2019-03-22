@@ -7,7 +7,7 @@ import sys
 
 class SigcppConan(ConanFile):
     name = "sigc++"
-    version = "2.10.0"
+    version = "2.10.1"
     license = "LGPL-3.0"
     url = "https://github.com/bincrafters/conan-sigcpp"
     homepage = "https://github.com/libsigcplusplus/libsigcplusplus"
