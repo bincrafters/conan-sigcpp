@@ -1,5 +1,5 @@
 from conans import ConanFile, tools, MSBuild, AutoToolsBuildEnvironment
-from conans.model.version import Version
+from conans.tools import Version
 from conans.errors import ConanException
 import os.path
 import sys
@@ -18,10 +18,7 @@ class SigcppConan(ConanFile):
         "shared": [True, False],
         "fPIC": [True, False],
     }
-    default_options = (
-        "shared=False",
-        "fPIC=False",
-    )
+    default_options = {'shared': False, 'fPIC': False}
     exports = "LICENSE.md"
     exports_sources = "msvc.patch"
 
