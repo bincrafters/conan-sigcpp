@@ -12,7 +12,6 @@ class SigcppConan(ConanFile):
     url = "https://github.com/bincrafters/conan-sigcpp"
     homepage = "https://github.com/libsigcplusplus/libsigcplusplus"
     description = "Typesafe Callback Framework for C++"
-    author = "Bincrafters <bincrafters@gmail.com>"
     settings = "os", "compiler", "build_type", "arch"
     options = {
         "shared": [True, False],
