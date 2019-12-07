@@ -55,7 +55,7 @@ class SigcppConan(ConanFile):
 
     def build_requirements(self):
         if self.settings.os == "Windows" and self.is_python2:
-            self.build_requires("7z_installer/1.0@conan/stable")
+            self.build_requires("7zip/19.00")
 
     def source(self):
         tools.download("https://download.gnome.org/sources/libsigc++/{}/{}.tar.xz".format(
